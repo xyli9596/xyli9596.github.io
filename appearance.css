@@ -63,19 +63,13 @@ body.theme-switchable:not(.theme-cosmos) {
   border-radius: 50%;
   transform: none;
 }
-.theme-switchable .name-cosmos {
-  position: absolute;
-  right: 19px;
-  bottom: 19px;
-  display: flex;
-  gap: 22px;
-  align-items: baseline;
-  pointer-events: none;
-  color: var(--muted);
-  font: 13px/1.5 var(--serif);
-}
-.theme-switchable .name-cosmos>span { display: flex; align-items: baseline; gap: 7px; letter-spacing: .1em; }
-.theme-switchable .name-cosmos i { font: normal 9px/1.5 var(--sans); letter-spacing: .05em; }
+/* Name imagery belongs beside the name rather than in the map's margin. */
+.home-intro .name-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px 22px; margin-bottom: 14px; }
+.home-intro .name-heading h1 { margin-bottom: 0; }
+.home-intro .name-meaning { display: flex; flex-wrap: wrap; gap: 5px 16px; margin: 0; color: var(--muted); font: 11px/1.7 var(--sans); letter-spacing: .025em; }
+.home-intro .name-meaning>span { white-space: nowrap; }
+.home-intro .name-meaning i { font-style: normal; }
+html[lang=zh-CN] .name-meaning i { font-family: var(--serif); font-size: 12px; }
 
 /* Night mode retains simple points, restrained stars, and readable small type. */
 .theme-switchable.theme-cosmos::before,
@@ -93,8 +87,7 @@ body.theme-switchable:not(.theme-cosmos) {
 .theme-switchable.theme-cosmos .note-point:not(.is-pending) .note-ring { filter: drop-shadow(0 0 3px #d7bd8d65); }
 .theme-switchable.theme-cosmos .note-point:hover .note-ring,
 .theme-switchable.theme-cosmos .note-point:focus-visible .note-ring { fill: #ddcba7; filter: drop-shadow(0 0 5px #d7bd8d70); }
-.theme-switchable.theme-cosmos .name-cosmos { color: #9caeb9; }
-.theme-switchable.theme-cosmos .name-cosmos i { color: #93a6bd; }
+.theme-switchable.theme-cosmos .name-meaning { color: #a3b5c8; }
 .theme-switchable.theme-cosmos .note-dialog[open] { animation: quiet-note .24s ease-out; }
 @keyframes quiet-note { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -106,9 +99,8 @@ body.theme-switchable:not(.theme-cosmos) {
   .theme-switchable .language-nav { gap: 8px; }
   .appearance-enabled .theme-toggle { font-size: 10px; gap: 4px; margin-right: 2px; }
   .theme-toggle svg { width: 13px; height: 13px; }
-  .theme-switchable .name-cosmos { right: 10px; bottom: 14px; gap: 13px; font-size: 12px; }
-  .theme-switchable .name-cosmos>span { gap: 5px; letter-spacing: .03em; }
-  .theme-switchable .name-cosmos i { font-size: 8px; }
+  .home-intro .name-heading { gap: 10px 18px; }
+  .home-intro .name-meaning { font-size: 11px; }
   .theme-switchable .shape-definition { max-width: 180px; }
   .theme-switchable .keyword-list a { font-size: 12px; }
   .theme-switchable .note-body p:not(.note-meta) { font-size: 16px; }

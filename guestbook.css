@@ -4,12 +4,16 @@
 .home-guestbook h2 { font-size: 28px; }
 .home-guestbook p:not(.eyebrow) { font: 18px/1.8 var(--serif); margin-bottom: 10px; color: var(--ink); }
 .home-guestbook p.guestbook-invitation-detail { font: 12px/1.8 var(--sans); color: var(--muted); margin-bottom: 18px; }
+.home-guestbook p.guestbook-research-hint { font: 11px/1.8 var(--sans); color: var(--muted); margin: 14px 0 0; }
 .guestbook-page { max-width: 820px; margin: 0 auto; padding-bottom: 55px; }
 .guestbook-page .guestbook-lead { font: 24px/1.8 var(--serif); color: var(--ink); margin-bottom: 13px; }
 .guestbook-page > p:not(.guestbook-lead) { color: var(--muted); font-size: 13px; }
 .guestbook-access { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 20px 0; margin: 30px 0; }
 .guestbook-access > span { font-size: 12px; color: var(--muted); }
 .guestbook-access .arrow-link { color: var(--green); white-space: nowrap; }
+.guestbook-research-note { border-left: 2px solid var(--amber); padding: 2px 0 2px 18px; margin: 28px 0; }
+.guestbook-research-note strong { color: var(--ink); font: 500 13px/1.8 var(--sans); }
+.guestbook-research-note p { font-size: 12px; line-height: 1.9; color: var(--muted); margin: 7px 0 0; }
 .guestbook-conversation[data-enabled="false"] { display: none; }
 .guestbook-conversation { min-height: 240px; margin: 35px -8px 25px; }
 .giscus, .giscus-frame { width: 100%; }

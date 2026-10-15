@@ -1,0 +1,122 @@
+/* Warm paper is the default. The star atlas is a quiet optional night mode. */
+body.theme-switchable:not(.theme-cosmos) {
+  --paper: #faf9f4;
+  --ink: #293c35;
+  --text: #3b4b43;
+  --muted: #667269;
+  --line: #dfe2d9;
+  background: var(--paper);
+  color-scheme: light;
+}
+.theme-toggle { display: none; }
+.appearance-enabled .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 0;
+  margin-right: 6px;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font: 11px/1.4 var(--sans);
+  white-space: nowrap;
+}
+.theme-toggle:hover { color: var(--ink); }
+.theme-toggle svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.theme-icon-sun { display: none; }
+.theme-cosmos .theme-icon-sun { display: block; }
+.theme-cosmos .theme-icon-moon { display: none; }
+.theme-switchable .language-nav { gap: 10px; }
+.theme-switchable .home-intro .discipline { font-size: 13px; }
+.theme-switchable .intro-aside span { font-size: 12px; line-height: 1.85; }
+.theme-switchable .region-sub { font-size: 11px; }
+.theme-switchable .keyword-heading>p:last-child,
+.theme-switchable #keyword-description { font-size: 11px; }
+.theme-switchable .direction-controls label { font-size: 11px; }
+.theme-switchable .keyword-list a { font-size: 13px; }
+.theme-switchable .note-body p:not(.note-meta) { font-size: 17px; line-height: 1.95; }
+
+/* All celestial decoration stays inside the mathematical navigation. */
+.theme-switchable .geometry {
+  background: radial-gradient(ellipse at 65% 27%, #e2e9df30, transparent 60%);
+}
+.theme-switchable .star-field { pointer-events: none; }
+.theme-switchable:not(.theme-cosmos) .star-field { opacity: .38; }
+.theme-switchable:not(.theme-cosmos) .star-field circle { fill: #8b9b8b; }
+.theme-switchable:not(.theme-cosmos) .star-field .star-warm { fill: #ac9879; }
+.theme-switchable:not(.theme-cosmos) .star-field .star-cool { fill: #7c9c94; }
+.theme-switchable .sector path { fill-opacity: .28; }
+.theme-switchable .sector:nth-child(even) path { fill-opacity: .25; }
+.theme-switchable .sector.is-active path { fill-opacity: .65; }
+.theme-switchable .sector.is-tied path { fill-opacity: .5; }
+.theme-switchable .note-ring { display: inline; fill: var(--paper); stroke: var(--amber); stroke-width: 1.5; }
+.theme-switchable .note-point.is-pending .note-ring { stroke-opacity: .6; stroke-width: 1.3; }
+.theme-switchable .note-point:not(.is-pending) .note-ring { filter: drop-shadow(0 0 2px #b59a6c45); }
+.theme-switchable .note-point:hover .note-ring,
+.theme-switchable .note-point:focus-visible .note-ring { fill: var(--amber); stroke-opacity: 1; }
+.theme-switchable .note-point:hover .note-halo { animation: none; }
+.theme-switchable .map-legend .legend-note {
+  border: 1px solid var(--amber);
+  background: transparent;
+  border-radius: 50%;
+  transform: none;
+}
+.theme-switchable .name-cosmos {
+  position: absolute;
+  right: 19px;
+  bottom: 19px;
+  display: flex;
+  gap: 22px;
+  align-items: baseline;
+  pointer-events: none;
+  color: var(--muted);
+  font: 13px/1.5 var(--serif);
+}
+.theme-switchable .name-cosmos>span { display: flex; align-items: baseline; gap: 7px; letter-spacing: .1em; }
+.theme-switchable .name-cosmos i { font: normal 9px/1.5 var(--sans); letter-spacing: .05em; }
+
+/* Night mode retains simple points, restrained stars, and readable small type. */
+.theme-switchable.theme-cosmos::before,
+.theme-switchable .cosmic-sky { display: none; }
+.theme-switchable.theme-cosmos .star-field { opacity: .58; }
+.theme-switchable.theme-cosmos .geometry {
+  background: radial-gradient(ellipse at 54% 42%, #25414a18, transparent 68%);
+}
+.theme-switchable.theme-cosmos .sector path { fill-opacity: .035; }
+.theme-switchable.theme-cosmos .sector:nth-child(even) path { fill-opacity: .03; }
+.theme-switchable.theme-cosmos .sector.is-active path { fill-opacity: .07; }
+.theme-switchable.theme-cosmos .sector.is-tied path { fill-opacity: .055; }
+.theme-switchable.theme-cosmos .boundary-band { fill-opacity: .22; }
+.theme-switchable.theme-cosmos .note-ring { stroke: #c5ab7c; fill: #0b1422; }
+.theme-switchable.theme-cosmos .note-point:not(.is-pending) .note-ring { filter: drop-shadow(0 0 3px #d7bd8d65); }
+.theme-switchable.theme-cosmos .note-point:hover .note-ring,
+.theme-switchable.theme-cosmos .note-point:focus-visible .note-ring { fill: #ddcba7; filter: drop-shadow(0 0 5px #d7bd8d70); }
+.theme-switchable.theme-cosmos .name-cosmos { color: #9caeb9; }
+.theme-switchable.theme-cosmos .name-cosmos i { color: #93a6bd; }
+.theme-switchable.theme-cosmos .note-dialog[open] { animation: quiet-note .24s ease-out; }
+@keyframes quiet-note { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (min-width: 621px) and (max-width: 1050px) {
+  .theme-switchable .site-header { column-gap: 24px; }
+  .theme-switchable .main-nav { gap: 17px; }
+}
+@media (max-width: 620px) {
+  .theme-switchable .language-nav { gap: 8px; }
+  .appearance-enabled .theme-toggle { font-size: 10px; gap: 4px; margin-right: 2px; }
+  .theme-toggle svg { width: 13px; height: 13px; }
+  .theme-switchable .name-cosmos { right: 10px; bottom: 14px; gap: 13px; font-size: 12px; }
+  .theme-switchable .name-cosmos>span { gap: 5px; letter-spacing: .03em; }
+  .theme-switchable .name-cosmos i { font-size: 8px; }
+  .theme-switchable .shape-definition { max-width: 180px; }
+  .theme-switchable .keyword-list a { font-size: 12px; }
+  .theme-switchable .note-body p:not(.note-meta) { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-switchable .note-dialog[open] { animation: none !important; }
+}
+@media print {
+  .theme-switchable .theme-toggle,
+  .theme-switchable .star-field { display: none !important; }
+}

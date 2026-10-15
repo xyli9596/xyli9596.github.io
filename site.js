@@ -188,6 +188,12 @@
       if (!template) return;
       event.preventDefault();
       stop();
+      // In the star-atlas preview, approach the note from its position in space.
+      const origin = link.getBoundingClientRect();
+      const dx = Math.max(-160,Math.min(160,origin.left+origin.width/2-innerWidth/2));
+      const dy = Math.max(-120,Math.min(120,origin.top+origin.height/2-innerHeight/2));
+      noteDialog.style.setProperty('--note-origin-x',dx.toFixed(1)+'px');
+      noteDialog.style.setProperty('--note-origin-y',dy.toFixed(1)+'px');
       noteBody.replaceChildren(template.content.cloneNode(true));
       noteDialog.setAttribute('aria-labelledby','note-title-'+link.dataset.note);
       noteDialog.showModal();

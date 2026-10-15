@@ -1,0 +1,343 @@
+/* Local preview: a quiet mathematical star atlas. */
+body.theme-cosmos {
+  --paper: #080f1c;
+  --ink: #ebe7dc;
+  --text: #c9d2dc;
+  --muted: #93a6bd;
+  --line: #283649;
+  --green: #99c9bf;
+  --amber: #cfb17c;
+  --wash: #132334;
+  color-scheme: dark;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse at 78% 4%, #193b482b, transparent 41%),
+    radial-gradient(ellipse at 12% 27%, #223b5429, transparent 37%),
+    linear-gradient(180deg, #080f1c 0%, #0b1422 55%, #080f1c 100%);
+  background-attachment: fixed;
+}
+
+.theme-cosmos::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .5;
+  background-image:
+    radial-gradient(circle at 7% 13%, #d5e4ef 0 .65px, transparent 1px),
+    radial-gradient(circle at 24% 6%, #99c9bf 0 .7px, transparent 1px),
+    radial-gradient(circle at 39% 22%, #d5e4ef 0 .5px, transparent 1px),
+    radial-gradient(circle at 58% 9%, #d5e4ef 0 .65px, transparent 1px),
+    radial-gradient(circle at 72% 28%, #cfb17c 0 .55px, transparent 1px),
+    radial-gradient(circle at 91% 15%, #d5e4ef 0 .7px, transparent 1px),
+    radial-gradient(circle at 3% 55%, #d5e4ef 0 .6px, transparent 1px),
+    radial-gradient(circle at 17% 72%, #d5e4ef 0 .5px, transparent 1px),
+    radial-gradient(circle at 45% 49%, #d5e4ef 0 .65px, transparent 1px),
+    radial-gradient(circle at 64% 76%, #99c9bf 0 .6px, transparent 1px),
+    radial-gradient(circle at 86% 58%, #d5e4ef 0 .5px, transparent 1px),
+    radial-gradient(circle at 95% 89%, #d5e4ef 0 .6px, transparent 1px);
+}
+
+.theme-cosmos ::selection { background: #729f9760; color: #fff9ed; }
+.theme-cosmos .cosmic-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .48;
+}
+.theme-cosmos .site-header,
+.theme-cosmos main,
+.theme-cosmos .site-footer { position: relative; z-index: 1; }
+.theme-cosmos a:hover { color: #c5e5dc; }
+.theme-cosmos a:focus-visible,
+.theme-cosmos button:focus-visible,
+.theme-cosmos input:focus-visible,
+.theme-cosmos summary:focus-visible { outline-color: var(--amber); }
+.theme-cosmos .skip { background: var(--green); color: #080f1c; }
+.theme-cosmos .site-header { border-bottom-color: #3040529c; }
+.theme-cosmos .brand svg { stroke: #abcfc6; stroke-width: 1; }
+.theme-cosmos .brand circle { fill: var(--amber); }
+.theme-cosmos .brand-detail { color: var(--muted); }
+.theme-cosmos .main-nav { color: #bcc9d6; }
+.theme-cosmos .main-nav [aria-current=page] { color: #bde0d5; border-color: #99c9bf91; }
+.theme-cosmos .language-nav [aria-current] { color: var(--ink); }
+.theme-cosmos .language-nav:before { border-color: #405063; }
+
+.theme-cosmos .home-intro { padding-top: 63px; padding-bottom: 41px; }
+.theme-cosmos .home-intro h1 { color: #f0ece3; font-weight: 400; }
+.theme-cosmos .home-intro h1 span { color: #a3b5c8; }
+.theme-cosmos .home-intro .eyebrow { color: #a0b4c7; }
+.theme-cosmos .intro-aside { max-width: 305px; }
+.theme-cosmos .intro-aside p { color: #d7e2df; }
+.theme-cosmos .intro-aside span { color: #93a6bd; }
+.theme-cosmos .cosmic-subtitle {
+  color: var(--amber);
+  font: 9px/1.6 var(--sans);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+/* The fields stay continuous; their edges are felt through space and light. */
+.theme-cosmos .atlas { border-top-color: #3444548c; }
+.theme-cosmos .geometry {
+  background:
+    radial-gradient(ellipse at 52% 43%, #23424b26 0%, #1226390a 35%, transparent 66%),
+    radial-gradient(ellipse at 83% 70%, #3340521a, transparent 44%);
+  border-bottom-color: #3040529c;
+}
+.theme-cosmos .sector path {
+  fill: #355c65;
+  fill-opacity: .055;
+  transition: fill .55s, fill-opacity .55s;
+}
+.theme-cosmos .sector:nth-child(even) path { fill: #52677a; fill-opacity: .045; }
+.theme-cosmos .sector.is-active path { fill: #579c98; fill-opacity: .09; }
+.theme-cosmos .sector.is-tied path { fill: #7bafa4; fill-opacity: .065; }
+.theme-cosmos .boundary-band { fill: #080f1c; fill-opacity: .5; }
+.theme-cosmos .axes { stroke: #71869b; stroke-width: .55; opacity: .21; }
+.theme-cosmos .axes text { fill: #8ca0b5; opacity: .8; }
+.theme-cosmos .rays line { stroke: #8a9cb1; stroke-width: .7; stroke-dasharray: 2 9; opacity: .25; }
+.theme-cosmos .rays line.is-boundary { stroke: #a2d2c8; opacity: .58; stroke-width: 1; }
+.theme-cosmos .hull-fill { fill: #0a1524; fill-opacity: .37; }
+.theme-cosmos .hull-boundary {
+  stroke: #a5cdc1;
+  stroke-width: 1.35;
+  opacity: .77;
+  filter: drop-shadow(0 0 4px #75b1a52b);
+}
+.theme-cosmos .vertex { fill: #0c1726; stroke: #c0d8cb; stroke-width: 1.2; }
+.theme-cosmos .vertex.is-active { fill: #d5eade; stroke: #e2f4e7; filter: drop-shadow(0 0 7px #b2ddc18c); }
+.theme-cosmos .vertex.is-tied { fill: #ddc99c; stroke: #e9d4a6; }
+.theme-cosmos .vertex-numbers { fill: #8fa5b6; opacity: .65; font-size: 10px; }
+.theme-cosmos .support-line { stroke: #d1b582; stroke-width: .95; opacity: .8; }
+.theme-cosmos .direction-vector { stroke: #c6ad82; stroke-width: .8; opacity: .54; stroke-dasharray: 2 5; }
+.theme-cosmos .direction-tip { fill: #e4c99a; filter: drop-shadow(0 0 4px #cfb17c5c); }
+.theme-cosmos .theta-label { fill: #d4bd96; }
+.theme-cosmos .shape-name { fill: #dce7e0; stroke: #0b1725; stroke-width: 8px; }
+.theme-cosmos .shape-sub { fill: #98adbc; stroke: #0b1725; stroke-width: 5px; }
+.theme-cosmos .region-link { color: #d6dedf; text-shadow: 0 2px 15px #050c16; }
+.theme-cosmos .region-link strong { color: #d9e1df; }
+.theme-cosmos .region-number { color: #9cadbb; letter-spacing: .15em; }
+.theme-cosmos .region-sub { color: #9aacbd; }
+.theme-cosmos .region-link.is-active strong,
+.theme-cosmos .region-link.is-tied strong,
+.theme-cosmos .region-link:hover strong { color: #bce2d5; }
+.theme-cosmos .region-link.is-active .region-number { color: var(--amber); }
+.theme-cosmos .region-arrow { color: #bce2d5; }
+.theme-cosmos .shape-definition { color: #91a6b7; text-shadow: 0 1px 8px #080f1c; }
+.theme-cosmos .shape-definition strong { color: #abc9c0; }
+.theme-cosmos .definition-mark { color: var(--amber); }
+.theme-cosmos .cosmic-coordinate { fill: #7f96ad; font: 8px var(--sans); letter-spacing: .13em; opacity: .6; pointer-events: none; }
+.theme-cosmos .name-cosmos {
+  position: absolute;
+  right: 19px;
+  bottom: 19px;
+  display: flex;
+  gap: 22px;
+  align-items: baseline;
+  pointer-events: none;
+  color: #b7c9cc;
+  font: 14px/1.5 var(--serif);
+  text-shadow: 0 1px 9px #080f1c;
+}
+.theme-cosmos .name-cosmos>span { display: flex; align-items: baseline; gap: 7px; letter-spacing: .13em; }
+.theme-cosmos .name-cosmos i { color: #7f98ae; font: normal 9px/1.5 var(--sans); letter-spacing: .1em; }
+
+/* A sparse, unanimated field gives the map depth without competing with it. */
+.theme-cosmos .star-field { pointer-events: none; }
+.theme-cosmos .star-field circle { fill: #d4dfeb; }
+.theme-cosmos .star-field .star-cool { fill: #99c9bf; }
+.theme-cosmos .star-field .star-warm { fill: #d2b98d; }
+.theme-cosmos .keyword-connection { stroke: #83aaa8; stroke-width: .7; }
+.theme-cosmos .keyword-connection.is-category-active { opacity: .3; }
+.theme-cosmos .keyword-connection.is-keyword-active { stroke: #b6ddd0; stroke-width: 1; opacity: .8; }
+.theme-cosmos .keyword-dot { fill: #7d94a3; stroke: #0c1726; stroke-width: 1.5; }
+.theme-cosmos .keyword-point.is-category-active .keyword-dot { fill: #aecfc1; }
+.theme-cosmos .keyword-point.is-keyword-active .keyword-dot { fill: #dfc28d; filter: drop-shadow(0 0 4px #cfb17c6b); }
+.theme-cosmos .keyword-point text { fill: #b7d1c8; stroke: #0b1725; stroke-width: 5px; }
+.theme-cosmos .keyword-point.is-keyword-active text { fill: #f0e5cf; }
+.theme-cosmos .keyword-point:focus-visible .keyword-dot { stroke: #d9bd8d; }
+
+/* Personal notes are small, tactile bodies among the quieter stars. */
+.theme-cosmos .note-ring { display: none; }
+.theme-cosmos .asteroid-body {
+  fill: url(#asteroid-material);
+  stroke: #a69a81;
+  stroke-width: .75;
+  paint-order: fill stroke;
+  opacity: .9;
+  filter: drop-shadow(1px 2px 2px #02060cb3);
+  transition: filter .3s ease, opacity .3s ease;
+}
+.theme-cosmos .asteroid-crater { fill: #333d43; fill-opacity: .44; stroke: #c3b99e; stroke-opacity: .14; stroke-width: .35; pointer-events: none; }
+.theme-cosmos .asteroid-orbit { fill: none; stroke: #bca880; stroke-width: .65; stroke-opacity: .13; pointer-events: none; }
+.theme-cosmos .note-point.is-pending .asteroid-body { opacity: .67; stroke-opacity: .63; }
+.theme-cosmos .note-halo,
+.theme-cosmos .asteroid-halo {
+  fill: none;
+  stroke: #c9b58c;
+  stroke-width: .7;
+  opacity: .13;
+  transition: opacity .3s, transform .3s;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.theme-cosmos .note-point.is-pending .note-halo { opacity: 0; }
+.theme-cosmos .note-point:hover .note-halo,
+.theme-cosmos .note-point:focus-visible .note-halo { animation: none; opacity: .6; transform: scale(1.23); stroke-width: .9; }
+.theme-cosmos .note-point:hover .asteroid-body,
+.theme-cosmos .note-point:focus-visible .asteroid-body { opacity: 1; filter: drop-shadow(0 0 6px #dcc38f6b) brightness(1.16); }
+.theme-cosmos .note-point-title { fill: #e2dccd; stroke: #0a1523; stroke-width: 7px; font-size: 15px; }
+
+.theme-cosmos .map-legend { color: #8fa4b7; }
+.theme-cosmos .map-legend i { border-color: #a5cdc1; opacity: .8; }
+.theme-cosmos .map-legend .legend-ray { border-color: #8a9cb1; }
+.theme-cosmos .map-legend .legend-support { border-color: var(--amber); }
+.theme-cosmos .map-legend .legend-note {
+  width: 7px;
+  height: 7px;
+  border-color: #bca47c;
+  border-radius: 42% 58% 51% 38%;
+  background: #a08e72;
+  transform: rotate(-18deg);
+}
+.theme-cosmos .keyword-index,
+.theme-cosmos .margin-index,
+.theme-cosmos .geometry-controls,
+.theme-cosmos .geometry-notes { border-color: #2d3d4e; }
+.theme-cosmos .keyword-heading .eyebrow { color: #a0bcbb; }
+.theme-cosmos .keyword-group h3 { color: #d4e1dc; }
+.theme-cosmos .keyword-group h3>span { color: #a9906d; }
+.theme-cosmos .keyword-list a { color: #acd1c7; border-bottom-color: #54766c82; }
+.theme-cosmos .keyword-list a.is-keyword-active { color: #e6d7b6; border-color: #b59b6f; }
+.theme-cosmos .margin-index { padding-top: 23px; padding-bottom: 25px; }
+.theme-cosmos .margin-index .eyebrow { color: #cbb27f; }
+.theme-cosmos .margin-index nav a { color: #d4dcd8; }
+.theme-cosmos .margin-index nav a:hover { color: #ede2c9; border-bottom-color: #ad946c73; }
+.theme-cosmos .margin-index nav a>span { color: #baa27c; }
+.theme-cosmos .story-step { color: #8fa3b9; }
+.theme-cosmos .story-step[aria-pressed=true] { color: #d5e4dd; border-bottom-color: #87b9aa; }
+.theme-cosmos .slider-row input { accent-color: #a6cbbb; }
+.theme-cosmos .slider-row button { color: #d5dfdc; border-color: #465a6d; background: #13223480; border-radius: 2px; }
+.theme-cosmos .slider-row button:hover { color: #e3eee5; border-color: #8db4aa; background: #19324280; }
+.theme-cosmos .selection a { color: #b6d9ce; border-bottom-color: #63877891; }
+.theme-cosmos .geometry-notes summary { color: #bdcfcf; }
+.theme-cosmos .notes-columns a,
+.theme-cosmos .text-links a,
+.theme-cosmos .arrow-link { border-bottom-color: #6a8b7d83; }
+.theme-cosmos .technical { border-top-color: #304052; }
+.theme-cosmos .mobile-region { color: #c5d2d8; }
+.theme-cosmos .mobile-region.is-active { color: #bce2d4; text-decoration-color: #7caa9a; }
+
+/* The story opens like a closer view, while the star field falls out of focus. */
+.theme-cosmos .note-dialog {
+  color: #cdd7df;
+  background: radial-gradient(ellipse at 90% 0%, #26474b38, transparent 65%), #0d1929;
+  border: 1px solid #78918469;
+  border-radius: 4px;
+  box-shadow: 0 30px 120px #000b, 0 0 45px #567d6c0a;
+}
+.theme-cosmos .note-dialog::backdrop { background: #020711b8; backdrop-filter: blur(7px); }
+.theme-cosmos .note-dialog[open] { animation: asteroid-approach .38s cubic-bezier(.2,.65,.2,1) both; }
+.theme-cosmos .note-toolbar { border-bottom-color: #34485c; color: #9fb2c4; }
+.theme-cosmos .note-close { color: #d5e4dc; }
+.theme-cosmos .note-close:hover { color: #f2d8a8; }
+.theme-cosmos .note-meta { color: #ccb17f; }
+.theme-cosmos .note-body h2,
+.theme-cosmos .standalone-note h2 { color: #ece7da; }
+.theme-cosmos .note-body p:not(.note-meta),
+.theme-cosmos .standalone-note p:not(.note-meta) { color: #cbd6dc; }
+.theme-cosmos .note-source { color: #b3d6cb; border-bottom-color: #65857794; }
+.theme-cosmos .note-tags { color: #92a8bb; }
+.theme-cosmos .note-photo img { background: #07101b; }
+.theme-cosmos .note-photo figcaption { color: #9dafbf; }
+.theme-cosmos .note-pending h2 { color: #cbded4; }
+.theme-cosmos .pending-zeros i { border-color: #cfb17c; background: #8e826c; border-radius: 42% 58% 51% 38%; }
+.theme-cosmos .standalone-note { border-bottom-color: #304052; }
+@keyframes asteroid-approach {
+  from { opacity: 0; transform: translate(calc(var(--note-origin-x, 0px) * .07), calc(var(--note-origin-y, 0px) * .07)) scale(.84); }
+  to { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+
+/* The same calm palette follows the reader into the academic pages. */
+.theme-cosmos .home-bio img,
+.theme-cosmos .about-intro img {
+  filter: saturate(.72) brightness(.95);
+  padding: 3px;
+  background: #162537;
+  border: 1px solid #a5b8bc36;
+  box-shadow: 0 10px 30px #0003;
+}
+.theme-cosmos .home-paper { border-color: #304052; }
+.theme-cosmos .home-paper h2 a { color: #e2e5dc; }
+.theme-cosmos .home-paper h2 a:hover { color: #c1dfd1; }
+.theme-cosmos .site-footer { border-color: #304052; }
+.theme-cosmos .site-footer a { color: #aabfca; }
+.theme-cosmos .page-heading { border-color: #304052; }
+.theme-cosmos .page-heading h1 { color: #e9e8de; }
+.theme-cosmos .page-heading .eyebrow { color: #9db9bd; }
+.theme-cosmos .mini-hull { stroke: #9fc9bb; opacity: .35; stroke-width: 1.4; }
+.theme-cosmos .mini-hull circle { fill: #d4c096; }
+.theme-cosmos .paper,
+.theme-cosmos .research-row,
+.theme-cosmos .formal-project,
+.theme-cosmos .content-section { border-color: #304052; }
+.theme-cosmos .paper h2 { color: #e8e8df; }
+.theme-cosmos .paper h2 a:hover { color: #bfded1; }
+.theme-cosmos .paper .authors { color: #b8c9d0; }
+.theme-cosmos pre { color: #b4c7d0; background: #132234; border-left: 1px solid #5b7f72; }
+.theme-cosmos .research-row .index { color: #c6ae81; }
+.theme-cosmos .records h3 { color: #dce5e1; }
+.theme-cosmos .records .talk-title { color: #c4d4d7; }
+.theme-cosmos .contact .text-links a { color: #b5d5cb; }
+
+@media (min-width: 1500px) {
+  .theme-cosmos .home-intro { padding-top: 70px; }
+}
+@media (max-width: 760px) {
+  .theme-cosmos .home-intro { padding-top: 35px; padding-bottom: 28px; }
+  .theme-cosmos .intro-aside { max-width: 100%; }
+  .theme-cosmos .direction-controls { border-top-color: #304052; }
+  .theme-cosmos .cosmic-subtitle { font-size: 8px; letter-spacing: .15em; }
+  .theme-cosmos .home-bio img { padding: 2px; }
+}
+@media (max-width: 620px) {
+  .theme-cosmos .geometry { background: radial-gradient(ellipse at 50% 48%, #24444c32, transparent 70%); }
+  .theme-cosmos .hull-boundary { stroke-width: 1.35; }
+  .theme-cosmos .axes { opacity: .18; }
+  .theme-cosmos .vertex-numbers { font-size: 10px; }
+  .theme-cosmos .shape-definition { color: #9bb0bd; }
+  .theme-cosmos .shape-definition { max-width: 180px; }
+  .theme-cosmos .name-cosmos { right: 10px; bottom: 14px; gap: 13px; font-size: 12px; }
+  .theme-cosmos .name-cosmos>span { gap: 5px; letter-spacing: .05em; }
+  .theme-cosmos .name-cosmos i { font-size: 8px; letter-spacing: .02em; }
+  .theme-cosmos .keyword-point text { stroke-width: 5px; }
+  .theme-cosmos .asteroid-body { stroke-width: .8; }
+  .theme-cosmos .margin-index { padding-top: 20px; padding-bottom: 23px; }
+  .theme-cosmos .note-dialog { max-height: calc(100dvh - 28px); }
+  .theme-cosmos .note-body { padding: 27px 25px 31px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-cosmos .note-dialog[open],
+  .theme-cosmos .note-point:hover .note-halo { animation: none !important; }
+  .theme-cosmos .note-point:hover .note-halo,
+  .theme-cosmos .note-point:focus-visible .note-halo { transform: none; }
+}
+@media print {
+  body.theme-cosmos { --paper: #fff; --ink: #233a32; --text: #35453e; --muted: #69716a; --line: #d8dbd1; --green: #356652; --amber: #9a713f; color-scheme: light; background: #fff; }
+  .theme-cosmos::before,
+  .theme-cosmos .cosmic-sky,
+  .theme-cosmos .star-field,
+  .theme-cosmos .cosmic-coordinate { display: none; }
+  .theme-cosmos .geometry { background: #fff; }
+  .theme-cosmos .page-heading h1,
+  .theme-cosmos .paper h2,
+  .theme-cosmos .records h3 { color: #233a32; }
+}

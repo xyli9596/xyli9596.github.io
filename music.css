@@ -33,8 +33,8 @@
 .music-toggle[aria-checked="true"] .music-switch-track i { background: var(--amber); transform: translateX(15px); }
 :is(.note-body,.standalone-note) .music-card p.music-status { margin: 9px 0 18px; font: 12px/1.8 var(--sans); color: var(--muted); }
 .music-player[hidden] { display: none; }
-.music-player { margin: 15px 0 20px; width: min(100%, 330px); border-radius: 4px; overflow: hidden; }
-.music-player iframe { display: block; width: 100%; height: 86px; border: 0; }
+.music-player { margin: 15px 0 20px; width: min(100%, 540px); border-radius: 12px; overflow: hidden; }
+.music-player iframe { display: block; width: 100%; height: 175px; border: 0; }
 :is(.note-body,.standalone-note) .music-card p.music-footnote { font: 11px/1.8 var(--sans); color: var(--muted); margin: 0; }
 .music-card .note-source { margin-right: 20px; }
 @keyframes music-arrival { from { opacity: 0; transform: translate(var(--note-origin-x,0),var(--note-origin-y,0)) scale(.86); } to { opacity: 1; transform: none; } }

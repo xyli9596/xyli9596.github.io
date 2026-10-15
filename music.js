@@ -19,11 +19,14 @@
     stopAll();
     const host = card.querySelector('.music-player');
     const player = document.createElement('iframe');
-    player.title = '网易云音乐 · G.E.M. 邓紫棋 — 光年之外';
-    // NetEase's official audio widget. Load only after the visitor opts in.
-    player.src = 'https://music.163.com/outchain/player?type=2&id=449818741&auto=1&height=66';
-    player.allow = 'autoplay';
+    player.title = 'Apple Music · G.E.M. 邓紫棋 — 光年之外';
+    // Official single-song embed, verified in Apple Music Marketing Tools.
+    // Expanding the card does not start playback; use Apple's native play button.
+    player.src = 'https://embed.music.apple.com/cn/album/%E5%85%89%E5%B9%B4%E4%B9%8B%E5%A4%96-%E7%94%B5%E5%BD%B1-%E5%A4%AA%E7%A9%BA%E6%97%85%E5%AE%A2-%E4%B8%BB%E9%A2%98%E6%9B%B2/1190070714?i=1190070744&itscg=30200&itsct=music_box_player&ls=1&app=music&mttnsubad=1190070744&theme=auto';
+    player.allow = 'autoplay *; encrypted-media *; clipboard-write';
+    player.setAttribute('sandbox', 'allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation');
     player.referrerPolicy = 'strict-origin-when-cross-origin';
+    player.height = '175';
     host.replaceChildren(player);
     host.hidden = false;
     button.setAttribute('aria-checked', 'true');

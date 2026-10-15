@@ -1,0 +1,50 @@
+/* A single quiet exception among the rings. An illustration, not a simulation. */
+.black-hole-art { --halo: #ad8b58; --core: #111b27; }
+.black-hole-aura { fill: none; stroke: var(--halo); stroke-width: 3; opacity: .18; filter: blur(2px); }
+.black-hole-orbit { fill: none; stroke: var(--halo); stroke-width: 1; opacity: .72; }
+.black-hole-light { fill: none; stroke: var(--halo); stroke-width: 1.3; filter: drop-shadow(0 0 2px #c5a76b80); }
+.black-hole-core { fill: var(--core); stroke: #38444c; stroke-width: .5; }
+.black-hole-front { fill: none; stroke: #e0c191; stroke-width: 1.5; }
+.black-hole-spark { fill: #f5dfb0; }
+.note-point.black-hole-point .note-ring,
+.note-point.black-hole-point .note-halo { display: none; }
+.black-hole-point .note-hit { r: 23; }
+.black-hole-point .black-hole-art { transform-box: fill-box; transform-origin: center; transition: transform .3s, filter .3s; }
+.black-hole-point:hover .black-hole-art,
+.black-hole-point:focus-visible .black-hole-art { transform: scale(1.15); filter: drop-shadow(0 0 4px #c5a76b70); }
+.black-hole-point:focus-visible .black-hole-orbit { stroke-width: 2; opacity: 1; }
+.theme-cosmos .black-hole-art { --halo: #cfb787; --core: #02040a; }
+.theme-cosmos .black-hole-light { filter: drop-shadow(0 0 4px #dfc99d99); }
+.note-dialog.music-note { width: min(660px,calc(100vw - 36px)); }
+.note-dialog.music-note[open] { animation: music-arrival .36s ease-out; }
+.music-note .note-body { padding-top: 30px; }
+.music-note h2 { letter-spacing: .04em; }
+.music-card { padding: 23px 0 22px; border-top: 1px solid var(--line); }
+.music-heading { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; }
+.music-emblem { flex: 0 0 74px; width: 74px; height: 60px; overflow: visible; }
+:is(.note-body,.standalone-note) .music-card p.music-song { margin: 0 0 3px; font: 21px/1.5 var(--serif); color: var(--ink); }
+:is(.note-body,.standalone-note) .music-card p.music-artist { margin: 0; font: 12px/1.5 var(--sans); color: var(--muted); letter-spacing: .05em; }
+.music-toggle { display: none; }
+.js .music-toggle { display: inline-flex; align-items: center; gap: 11px; min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: var(--ink); font: 13px var(--sans); cursor: pointer; }
+.music-toggle:focus-visible { outline: 2px solid var(--amber); outline-offset: 5px; border-radius: 3px; }
+.music-switch-track { display: block; width: 36px; height: 21px; border-radius: 20px; background: #929b952c; border: 1px solid #7b897a7a; transition: background .18s; }
+.music-switch-track i { display: block; width: 13px; height: 13px; margin: 3px; background: var(--muted); border-radius: 50%; transition: transform .18s; }
+.music-toggle[aria-checked="true"] .music-switch-track { background: #aa8b5740; border-color: var(--amber); }
+.music-toggle[aria-checked="true"] .music-switch-track i { background: var(--amber); transform: translateX(15px); }
+:is(.note-body,.standalone-note) .music-card p.music-status { margin: 9px 0 18px; font: 12px/1.8 var(--sans); color: var(--muted); }
+.music-player[hidden] { display: none; }
+.music-player { margin: 15px 0 20px; width: 100%; background: #080f1c; border-radius: 4px; overflow: hidden; }
+.music-player iframe { display: block; width: 100%; aspect-ratio: 16 / 9; min-height: 200px; border: 0; }
+:is(.note-body,.standalone-note) .music-card p.music-footnote { font: 11px/1.8 var(--sans); color: var(--muted); margin: 0; }
+.music-card .note-source { margin-right: 20px; }
+@keyframes music-arrival { from { opacity: 0; transform: translate(var(--note-origin-x,0),var(--note-origin-y,0)) scale(.86); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .note-dialog.music-note[open] { animation: none !important; }
+  .black-hole-point .black-hole-art, .music-switch-track, .music-switch-track i { transition: none; }
+}
+@media (max-width:620px) {
+  .music-heading { gap: 12px; }
+  .music-emblem { width: 58px; flex-basis: 58px; }
+  .music-note .note-body { padding-inline: 20px; }
+  .music-note h2 { font-size: 24px; }
+}

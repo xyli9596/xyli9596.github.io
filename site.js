@@ -1,4 +1,4 @@
-/* Convex-hull normal fan. No analytics, external scripts, or stored visitor data. */
+/* Convex-hull normal fan. The optional music player loads only on request. */
 (() => {
   'use strict';
   document.documentElement.classList.add('js');
@@ -178,15 +178,18 @@
   // The small rings in the margins open a short note without losing the map.
   const noteDialog = document.getElementById('note-dialog');
   const noteBody = noteDialog.querySelector('.note-body');
+  let enteringNote = false;
   // Note positions are compositional: they do not select neighboring topics.
   document.querySelectorAll('[data-note]').forEach(link => {
     link.addEventListener('pointerenter', stop);
     link.addEventListener('focus', stop);
-    link.addEventListener('click', event => {
+    link.addEventListener('click', async event => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || typeof noteDialog.showModal !== 'function') return;
       const template = document.getElementById('note-template-'+link.dataset.note);
       if (!template) return;
       event.preventDefault();
+      if (enteringNote || noteDialog.open) return;
+      enteringNote = true;
       stop();
       // In the star-atlas preview, approach the note from its position in space.
       const origin = link.getBoundingClientRect();
@@ -194,13 +197,29 @@
       const dy = Math.max(-120,Math.min(120,origin.top+origin.height/2-innerHeight/2));
       noteDialog.style.setProperty('--note-origin-x',dx.toFixed(1)+'px');
       noteDialog.style.setProperty('--note-origin-y',dy.toFixed(1)+'px');
+      const isMusic = link.dataset.note === 'light-years-away';
+      noteDialog.classList.toggle('music-note', isMusic);
+      if (isMusic && link.classList.contains('black-hole-point') && !motion.matches && map.animate) {
+        const bounds = map.getBoundingClientRect();
+        const transformOrigin = `${origin.left+origin.width/2-bounds.left}px ${origin.top+origin.height/2-bounds.top}px`;
+        const approach = map.animate([
+          {transform:'scale(1)', opacity:1, transformOrigin},
+          {transform:'scale(.12) rotate(-4deg)', opacity:0, transformOrigin}
+        ], {duration:360, easing:'cubic-bezier(.6,0,.7,.35)'});
+        try { await approach.finished; } catch (_) { /* Navigation may interrupt. */ }
+      }
       noteBody.replaceChildren(template.content.cloneNode(true));
       noteDialog.setAttribute('aria-labelledby','note-title-'+link.dataset.note);
       noteDialog.showModal();
       noteDialog.scrollTop = 0;
+      enteringNote = false;
     });
   });
   noteDialog.querySelector('.note-close').addEventListener('click', () => noteDialog.close());
+  noteDialog.addEventListener('close', () => {
+    noteBody.replaceChildren();
+    noteDialog.classList.remove('music-note');
+  });
   noteDialog.addEventListener('click', event => {
     if (event.target.closest?.('a')) noteDialog.close();
     if (event.target !== noteDialog) return;

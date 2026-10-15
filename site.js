@@ -21,6 +21,8 @@
   const svg = map.querySelector('svg');
   const slider = document.getElementById('direction');
   const controls = document.querySelector('.geometry-controls');
+  const workspace = document.querySelector('.atlas-workspace');
+  const legend = workspace?.querySelector('.map-legend');
   const angle = document.getElementById('angle');
   const selected = document.getElementById('selected-link');
   const peer = document.createElement('a');
@@ -34,6 +36,7 @@
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const viewport = matchMedia('(max-width: 620px)');
   let frame = null, previous = null, running = false, theta = 58.63, active = -1, activeView = '';
+  let suppressHoverUntilMove = false;
   const radians = degrees => degrees * Math.PI / 180;
   const degrees = radians => radians * 180 / Math.PI;
   const set = (node, attrs) => Object.entries(attrs).forEach(([k,v]) => node.setAttribute(k, v));
@@ -41,8 +44,25 @@
 
   function resize() {
     svg.setAttribute('viewBox', viewport.matches ? '300 48 520 500' : '0 0 1120 620');
+    if (!workspace) return;
+    const ratio = viewport.matches ? 520/500 : 1120/620;
+    const viewportHeight = window.visualViewport?.height || innerHeight;
+    const availableHeight = Math.max(60, viewportHeight-controls.offsetHeight-(legend?.offsetHeight || 0)-48);
+    const width = Math.min(workspace.clientWidth, availableHeight*ratio);
+    map.style.width = `${width.toFixed(2)}px`;
+    map.style.setProperty('--atlas-scale', (width/1120).toFixed(4));
+    map.dataset.compact = String(!viewport.matches && width<760);
   }
   viewport.addEventListener('change', resize);
+  window.addEventListener('resize', resize);
+  window.visualViewport?.addEventListener('resize', resize);
+  if (workspace && 'ResizeObserver' in window) {
+    const observer = new ResizeObserver(resize);
+    observer.observe(controls);
+    if (legend) observer.observe(legend);
+    observer.observe(workspace);
+  }
+  document.fonts?.ready.then(resize);
   resize();
 
   function highlight(i, tied = []) {
@@ -127,6 +147,16 @@
   }
   rotate.addEventListener('click', () => {
     if (running) return stop();
+    if (workspace) {
+      const bounds = workspace.getBoundingClientRect();
+      const height = window.visualViewport?.height || innerHeight;
+      if (bounds.top<16 || bounds.bottom>height-8) {
+        // Moving the map under a stationary pointer must not count as hovering.
+        suppressHoverUntilMove = true;
+        document.addEventListener('pointermove', () => { suppressHoverUntilMove=false; }, {once:true});
+        workspace.scrollIntoView({block:'start', behavior:motion.matches ? 'instant' : 'smooth'});
+      }
+    }
     running = true;
     rotate.textContent = data.pause;
     rotate.setAttribute('aria-pressed','true');
@@ -142,12 +172,14 @@
   }
   document.querySelectorAll('[data-sector]').forEach(el => {
     el.addEventListener('pointerenter', () => {
+      if (suppressHoverUntilMove) return;
       if (map.dataset.stage === '2') selectRegion(+el.dataset.sector);
     });
     el.addEventListener('focus', () => selectRegion(+el.dataset.sector));
   });
   map.querySelectorAll('[data-boundary]').forEach(el => {
     el.addEventListener('pointerenter', () => {
+      if (suppressHoverUntilMove) return;
       if (map.dataset.stage !== '2') return;
       stop();
       render(degrees(data.normals[+el.dataset.boundary]));
@@ -170,7 +202,7 @@
     keywordDescription.textContent = topic.description;
   }
   document.querySelectorAll('[data-keyword]').forEach(el=> {
-    el.addEventListener('pointerenter',()=>showKeyword(el.dataset.keyword));
+    el.addEventListener('pointerenter',()=> { if (!suppressHoverUntilMove) showKeyword(el.dataset.keyword); });
     el.addEventListener('focus',()=>showKeyword(el.dataset.keyword));
     el.addEventListener('pointerleave',()=> { if (document.activeElement !== el) clearKeyword(); });
     el.addEventListener('blur',clearKeyword);
@@ -181,7 +213,7 @@
   let enteringNote = false;
   // Note positions are compositional: they do not select neighboring topics.
   document.querySelectorAll('[data-note]').forEach(link => {
-    link.addEventListener('pointerenter', stop);
+    link.addEventListener('pointerenter', () => { if (!suppressHoverUntilMove) stop(); });
     link.addEventListener('focus', stop);
     link.addEventListener('click', async event => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || typeof noteDialog.showModal !== 'function') return;

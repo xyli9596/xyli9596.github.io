@@ -19,11 +19,10 @@
     stopAll();
     const host = card.querySelector('.music-player');
     const player = document.createElement('iframe');
-    player.title = 'G.E.M. 鄧紫棋 — 光年之外 LIGHT YEARS AWAY · Official MV';
-    // Official, visible player; never extract or rehost the recording.
-    player.src = 'https://www.youtube-nocookie.com/embed/T4SimnaiktU?autoplay=1&playsinline=1&rel=0';
-    player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    player.allowFullscreen = true;
+    player.title = '网易云音乐 · G.E.M. 邓紫棋 — 光年之外';
+    // NetEase's official audio widget. Load only after the visitor opts in.
+    player.src = 'https://music.163.com/outchain/player?type=2&id=449818741&auto=1&height=66';
+    player.allow = 'autoplay';
     player.referrerPolicy = 'strict-origin-when-cross-origin';
     host.replaceChildren(player);
     host.hidden = false;

@@ -1,0 +1,55 @@
+/* Preview: a deeper night atlas. Decorative, inspired by false-colour imagery. */
+.night-sky-detail, .night-note-star { display: none; }
+@media screen {
+.theme-switchable.theme-cosmos {
+  --paper: #050b16;
+  background-image: radial-gradient(ellipse at 75% 12%, #12283528, transparent 42%), linear-gradient(180deg,#050913,#09111e 66%,#050b16);
+}
+.theme-switchable.theme-cosmos::before { display: block; opacity: .22; z-index: 0; }
+.theme-switchable.theme-cosmos .geometry {
+  background: radial-gradient(ellipse at 25% 32%,#283c2a35,transparent 56%), radial-gradient(ellipse at 80% 60%,#15394235,transparent 54%), #050a14;
+}
+.theme-switchable.theme-cosmos .atlas { border-top-color: #29374980; }
+.theme-switchable.theme-cosmos .night-sky-detail,
+.theme-switchable.theme-cosmos .night-note-star { display: inline; pointer-events: none; }
+.theme-switchable.theme-cosmos .geometry>.hull-map>.star-field { display: none; }
+.theme-switchable.theme-cosmos .sector path,
+.theme-switchable.theme-cosmos .sector:nth-child(even) path { fill-opacity: .008; }
+.theme-switchable.theme-cosmos .sector.is-active path { fill-opacity: .035; }
+.theme-switchable.theme-cosmos .sector.is-tied path { fill-opacity: .025; }
+.theme-switchable.theme-cosmos .boundary-band { fill-opacity: .04; }
+.theme-switchable.theme-cosmos .hull-fill { fill: #040a14; fill-opacity: .58; }
+.theme-switchable.theme-cosmos .hull-boundary { stroke: #c0d9cd; opacity: .76; stroke-width: 1.05; filter: drop-shadow(0 0 5px #75baa35c); }
+.theme-switchable.theme-cosmos .rays line { opacity: .17; stroke-dasharray: 1 11; }
+.theme-switchable.theme-cosmos .rays line.is-boundary { opacity: .52; }
+.theme-switchable.theme-cosmos .axes { opacity: .14; }
+.theme-switchable.theme-cosmos .note-point:not(.black-hole-point) .note-ring,
+.theme-switchable.theme-cosmos .note-point:not(.black-hole-point) .note-halo { display: none; }
+.night-note-core { fill: #fff2c9; }
+.theme-switchable.theme-cosmos .note-point.is-pending .night-note-star { opacity: .72; }
+.theme-switchable.theme-cosmos .note-point:not(.is-pending) .night-note-star { filter: drop-shadow(0 0 4px #efb05b66); }
+.night-note-star { transform-box: fill-box; transform-origin: center; transition: transform .25s, filter .25s; }
+.theme-switchable.theme-cosmos .note-point:hover .night-note-star,
+.theme-switchable.theme-cosmos .note-point:focus-visible .night-note-star { opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 6px #ffd79677); }
+.theme-switchable.theme-cosmos .black-hole-point .black-hole-art { filter: drop-shadow(0 0 6px #f0c7865c); }
+.theme-switchable.theme-cosmos .region-link { text-shadow: 0 1px 8px #020711,0 0 22px #020711; }
+.theme-switchable.theme-cosmos .region-link strong { color: #e4e8e2; }
+.theme-switchable.theme-cosmos .region-sub { color: #a8bac8; }
+.theme-switchable.theme-cosmos .keyword-point text { stroke: #050c17; stroke-width: 6px; }
+.theme-switchable.theme-cosmos .map-legend .legend-note { background: #f2ce91; border-color: #eec485; box-shadow: 0 0 7px #e9af5b80; }
+}
+/* A single reveal turns the page into a night sky; the sky itself stays still. */
+html.theme-revealing { view-transition-name: root; }
+html.theme-revealing main { view-transition-name: none; }
+html.theme-revealing::view-transition-group(root) { animation-duration: .9s; }
+html.theme-revealing::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
+html.theme-revealing::view-transition-new(root) { animation: enter-night .9s cubic-bezier(.2,.65,.2,1) both; mix-blend-mode: normal; }
+@keyframes enter-night {
+  from { clip-path: circle(0 at var(--theme-x,95%) var(--theme-y,45px)); }
+  to { clip-path: circle(var(--theme-radius,160vmax) at var(--theme-x,95%) var(--theme-y,45px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-revealing::view-transition-new(root) { animation: none !important; }
+  .night-note-star { transition: none; }
+}
+@media print { .night-sky-detail,.night-note-star { display: none !important; } }
